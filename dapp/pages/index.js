@@ -1,65 +1,54 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import React, { Component } from "react";
+import { Grid, Container, Header } from "semantic-ui-react";
+import Layout from "../components/Layout";
+import { Link, Router } from "../routes";
+const Moralis = require("moralis");
+require("dotenv").config();
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+class Dashboard extends Component {
+  state = { userAddress: "", username: "" };
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+  async componentDidMount() {
+    this._isMounted = true;
+    await Moralis.initialize(process.env.MORALIS_APP_ID);
+    Moralis.serverURL = process.env.MORALIS_SERVER_URL;
+    await Moralis.Web3.authenticate();
+    const user = Moralis.User.current();
+    this.setState({
+      userAddress: user.attributes.ethAddress,
+      username: user.attributes.username,
+    });
+    console.log(user.get("ethAddress"));
+  }
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  render() {
+    return (
+      <Layout page="dashboard">
+        <Grid centered columns={6} style={{ marginTop: "10px" }}>
+          <Grid.Row color="black">
+            <h1
+              style={{
+                textColor: "white",
+                fontSize: "4em",
+                fontWeight: "normal",
+              }}
+            >
+              RoyalT
+            </h1>
+          </Grid.Row>
+          <Grid.Row>
+            <h2>User Address: {this.state.userAddress}</h2>
+          </Grid.Row>
+          <Grid.Row>
+            <h2>Username: {this.state.username}</h2>
+          </Grid.Row>
+        </Grid>
+      </Layout>
+    );
+  }
 }
+
+export default Dashboard;
