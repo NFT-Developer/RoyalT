@@ -1,0 +1,6 @@
+const authentication = {
+  MORALIS_APP_ID: "...",
+  MORALIS_SERVER_URL: "...",
+};
+
+module.exports = authentication;
