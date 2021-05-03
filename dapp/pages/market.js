@@ -15,21 +15,24 @@ if (!process.env.MORALIS_APP_ID) {
   serverURL = process.env.MORALIS_SERVER_URL;
 }
 
-class Dashboard extends Component {
+class Market extends Component {
   state = { userAddress: "", username: "" };
 
   async componentDidMount() {
     this._isMounted = true;
-    console.log(appId, serverURL);
+    let user;
     await Moralis.initialize(appId);
-    Moralis.serverURL = serverURL;
-    await Moralis.Web3.authenticate();
-    const user = Moralis.User.current();
+    user = Moralis.User.current();
+    if (user) {
+    } else {
+      Moralis.serverURL = serverURL;
+      await Moralis.Web3.authenticate();
+      user = Moralis.User.current();
+    }
     this.setState({
       userAddress: user.attributes.ethAddress,
       username: user.attributes.username,
     });
-    console.log(user.get("ethAddress"));
   }
 
   componentWillUnmount() {
@@ -48,14 +51,9 @@ class Dashboard extends Component {
                     fontWeight: "normal",
                   }}
                 >
-                  RoyalT
+                  Market Place
                 </h1>
-              </Grid.Row>
-              <Grid.Row>
-                <h2>User Address: {this.state.userAddress}</h2>
-              </Grid.Row>
-              <Grid.Row>
-                <h2>Username: {this.state.username}</h2>
+                <h2>Address:{this.state.userAddress}</h2>
               </Grid.Row>
             </Grid.Column>
           </Grid.Row>
@@ -68,4 +66,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default Market;
