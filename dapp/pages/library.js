@@ -15,7 +15,7 @@ if (!process.env.MORALIS_APP_ID) {
   serverURL = process.env.MORALIS_SERVER_URL;
 }
 
-class Wallet extends Component {
+class Library extends Component {
   state = { userAddress: "", username: "" };
 
   async componentDidMount() {
@@ -43,16 +43,9 @@ class Wallet extends Component {
       <Layout page="dashboard">
         <Grid columns={6} style={{ marginTop: "10px" }}>
           <Grid.Row>
-            <Grid.Column width={3}>
+            <Grid.Column width={6}>
               <Grid.Row>
-                <h1
-                  style={{
-                    fontSize: "4em",
-                    fontWeight: "normal",
-                  }}
-                >
-                  Wallet
-                </h1>
+                <h1>My Library</h1>
                 <h2>Address:{this.state.userAddress}</h2>
               </Grid.Row>
             </Grid.Column>
@@ -66,4 +59,4 @@ class Wallet extends Component {
   }
 }
 
-export default Wallet;
+export default Library;

@@ -29,9 +29,9 @@ class NavMenu extends Component {
           <Icon name="upload" />
           Masters
         </Menu.Item>
-        <Menu.Item as="a" href="/wallet">
-          <Icon name="money bill alternate outline" />
-          Wallet
+        <Menu.Item as="a" href="/library">
+          <Icon name="music" />
+          Library
         </Menu.Item>
         <Menu.Item as="a" href="/market">
           <Icon name="shopping basket" />
