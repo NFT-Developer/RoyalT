@@ -1,5 +1,5 @@
 const walletMnemonic = process.env.MNEMONIC;
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   Grid,
   Container,
@@ -46,6 +46,7 @@ let songTokens = [
     forSale: true,
   },
 ];
+
 let appId;
 let serverURL;
 if (!process.env.MORALIS_APP_ID) {
@@ -58,7 +59,15 @@ if (!process.env.MORALIS_APP_ID) {
 }
 
 class Library extends Component {
-  state = { userAddress: "", username: "" };
+  constructor(props) {
+    super(props);
+    this.state = {
+      userAddress: "",
+      username: "",
+      songs: [],
+    };
+    this.handleOnDragEnd = this.handleOnDragEnd.bind(this);
+  }
 
   async componentDidMount() {
     this._isMounted = true;
@@ -74,46 +83,28 @@ class Library extends Component {
     this.setState({
       userAddress: user.attributes.ethAddress,
       username: user.attributes.username,
+      songs: songTokens,
     });
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
-  displayPlaylist2() {
-    return (
-      <DragDropContext>
-        <Droppable droppableId="playlist">
-          {(provided) => (
-            <ul {...provided.droppableProps} ref={provided.innerRef}>
-              {songTokens.map(({ id, title, artist }, index) => {
-                return (
-                  <Draggable key={id} draggableId={id} index={index}>
-                    {(provided) => (
-                      <li
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <p>{artist}</p>
-                      </li>
-                    )}
-                  </Draggable>
-                );
-              })}
-            </ul>
-          )}
-        </Droppable>
-      </DragDropContext>
-    );
+
+  handleOnDragEnd(result) {
+    const items = Array.from(this.state.songs);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    this.setState({ songs: items });
   }
+
   displayPlaylist() {
     return (
-      <DragDropContext>
+      <DragDropContext onDragEnd={this.handleOnDragEnd}>
         <Droppable droppableId="songTokens">
           {(provided) => (
             <ul {...provided.droppableProps} ref={provided.innerRef}>
-              {songTokens.map(
+              {this.state.songs.map(
                 (
                   { id, title, artist, time, liked, artwork, forSale },
                   index
@@ -132,7 +123,7 @@ class Library extends Component {
                                 <Table.Cell style={{ width: "60px" }}>
                                   <Icon size="big" name="play circle outline" />
                                 </Table.Cell>
-                                <Table.Cell>
+                                <Table.Cell style={{ width: "200px" }}>
                                   <div class="plTitle">
                                     <p>{title}</p>
                                     <p>{artist}</p>
@@ -162,6 +153,7 @@ class Library extends Component {
                   );
                 }
               )}
+              {provided.placeholder}
             </ul>
           )}
         </Droppable>
