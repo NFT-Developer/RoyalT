@@ -2,6 +2,11 @@ a {
   color: black;
 }
 
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .master {
   margin-top: -15px;
 }
@@ -26,4 +31,8 @@ a {
 
 .view {
   min-width: 500px;
+}
+
+.plTitle {
+  margin-left: 0px;
 }
