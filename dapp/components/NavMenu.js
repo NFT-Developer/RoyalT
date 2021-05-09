@@ -41,19 +41,13 @@ class NavMenu extends Component {
     );
 
     return (
-      <div>
-        <Sidebar.Pushable as={Segment} style={{ overflow: "hidden" }}>
-          <VerticalSidebar
-            animation={"push"}
-            direction={"left"}
-            visible={true}
-          />
+      <Sidebar.Pushable as={Segment} style={{ overflow: "hidden" }}>
+        <VerticalSidebar animation={"push"} direction={"left"} visible={true} />
 
-          <Sidebar.Pusher dimmed={false}>
-            <Segment>{this.props.children}</Segment>
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
-      </div>
+        <Sidebar.Pusher dimmed={false}>
+          <Segment>{this.props.children}</Segment>
+        </Sidebar.Pusher>
+      </Sidebar.Pushable>
     );
   }
 }

@@ -1,6 +1,15 @@
 const walletMnemonic = process.env.MNEMONIC;
 import React, { Component } from "react";
-import { Grid, Container, Header } from "semantic-ui-react";
+import {
+  Grid,
+  Container,
+  Header,
+  Segment,
+  Dropdown,
+  Menu,
+  Table,
+  Icon,
+} from "semantic-ui-react";
 import Layout from "../components/Layout";
 import { Link, Router } from "../routes";
 const Moralis = require("moralis");
@@ -40,14 +49,86 @@ class Library extends Component {
   }
   render() {
     return (
-      <Layout page="dashboard">
-        <Grid columns={6} style={{ marginTop: "10px" }}>
+      <Layout page="library">
+        <Grid style={{ marginTop: "10px" }}>
           <Grid.Row>
-            <Grid.Column width={6}>
+            <Grid.Column>
               <Grid.Row>
                 <h1>My Library</h1>
                 <h2>Address:{this.state.userAddress}</h2>
               </Grid.Row>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row columns={1}>
+            <Grid.Column>
+              <div class="infoPane outlineView">Info Pane</div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row width={4} columns={1}>
+            <Grid.Column color="blue">
+              <div class="playlistView outlineView">
+                <Menu size="mini" vertical>
+                  <Dropdown item text="Playlists">
+                    <Dropdown.Menu>
+                      <Dropdown.Item>+ New</Dropdown.Item>
+                      <Dropdown.Item>All Songs</Dropdown.Item>
+                      <Dropdown.Item>Favorites</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Menu>
+                <Table singleLine>
+                  <Table.Body>
+                    <Table.Row>
+                      <Table.Cell>
+                        <Icon size="big" name="play circle outline" />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Icon name="add" />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <p>Track1</p>
+                        <p>Artist</p>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <p>1:32</p>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <p>Artwork...</p>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Icon size="large" name="heart outline" />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Icon name="ellipsis vertical" />
+                      </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell>
+                        <Icon size="big" name="play circle outline" />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Icon name="add" />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <p>Track2</p>
+                        <p>Artist</p>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <p>1:32</p>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <p>Artwork...</p>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Icon size="large" name="heart outline" />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Icon name="ellipsis vertical" />
+                      </Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                </Table>
+              </div>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
