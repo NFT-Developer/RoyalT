@@ -2,6 +2,37 @@ a {
   color: black;
 }
 
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .master {
   margin-top: -15px;
+}
+
+.infoPane {
+  width: 65%;
+  padding: 10px;
+  background: white;
+  margin-left: 2%;
+}
+
+.playlistView {
+  color: black;
+  width: 65%;
+  padding: 10px;
+  margin-left: 2%;
+}
+
+.outlineView {
+  border: 2px solid #000000;
+}
+
+.view {
+  min-width: 500px;
+}
+
+.plTitle {
+  margin-left: 0px;
 }
