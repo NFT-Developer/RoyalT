@@ -1,6 +1,6 @@
 const walletMnemonic = process.env.MNEMONIC;
 import React, { Component } from "react";
-import { Grid, Container, Header, Table} from "semantic-ui-react";
+import { Grid, Container, Header, Table, Image} from "semantic-ui-react";
 import Layout from "../components/Layout";
 import { Link, Router } from "../routes";
 const Moralis = require("moralis");
@@ -55,15 +55,21 @@ class Release extends Component {
           </Grid.Row>
           <Grid.Row columns={2} color="red">
             <Grid.Column color="pink">
-              Artwork
-            <br />
-            Royalties Sold
-            <br />
-            [7 / 10]
+              <Image size="medium" src='https://react.semantic-ui.com/images/wireframe/image.png' />
+              <br />
+              Royalties Sold
+              <br />
+              [7 / 10]
             </Grid.Column>
             <Grid.Column>
               <u>Royalty Holders:</u>
-              <br />Address....... %
+              <ul>
+                <li>Address0 ....... 90%</li>
+                <li>Address1 ....... 1%</li>
+                <li>Address2 ....... 0.9%</li>
+                <li>Address3 ....... 0.8%</li>
+                <li>Address4 ....... 0.7%</li>
+              </ul>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row color="green" style={{padding: "10px"}}>
@@ -72,33 +78,47 @@ class Release extends Component {
                 <Table.Row>
                   <Table.HeaderCell singleLine>Release Title</Table.HeaderCell>
                   <Table.HeaderCell>Minted Qty.</Table.HeaderCell>
-                  <Table.HeaderCell># Sold</Table.HeaderCell>
+                  <Table.HeaderCell>Originals Sold</Table.HeaderCell>
+                  <Table.HeaderCell># Resales</Table.HeaderCell>
                   <Table.HeaderCell>Base Cost</Table.HeaderCell>
+                  <Table.HeaderCell>Resale Fee</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
                 <Table.Row>
                   <Table.Cell singleLine>
-                    Release Un    
+                    Release 1    
                   </Table.Cell>
                   <Table.Cell>75</Table.Cell>
+                  <Table.Cell>
+                    75
+                  </Table.Cell>
                   <Table.Cell>
                     1094
                   </Table.Cell>
                   <Table.Cell>
                     0.001 ETH
+                  </Table.Cell>
+                  <Table.Cell>
+                    10%
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell singleLine>
-                    Release Un    
+                    Release 2    
                   </Table.Cell>
                   <Table.Cell>75</Table.Cell>
                   <Table.Cell>
-                    1094
+                    60
+                  </Table.Cell>
+                  <Table.Cell>
+                    14
                   </Table.Cell>
                   <Table.Cell>
                     0.001 ETH
+                  </Table.Cell>
+                  <Table.Cell>
+                    10%
                   </Table.Cell>
                 </Table.Row>  
               </Table.Body>
@@ -109,7 +129,7 @@ class Release extends Component {
               + New Releases
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row columns={2}>
+          <Grid.Row color="orange" columns={2}>
             <Grid.Column>
               Available:<br />Name
             </Grid.Column>
