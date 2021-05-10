@@ -47,10 +47,11 @@ class Release extends Component {
   render() {
     return (
       <Layout page="dashboard">
-        <Grid style={{ marginTop: "10px", paddingRight:"150px" }}>
+        <Grid style={{ paddingRight:"150px" }}>
           <Grid.Row color="blue">
             <Grid.Column>
-              Artist<br />Title
+              <h2 class="down10">Artist</h2>
+              <h3 class="up10">Title</h3>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={2} color="red">
