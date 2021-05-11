@@ -1,2 +1,3 @@
-# RoyalT
-Royalty Earning NFTs
+# RoyalTSwap
+
+Royalty Earning NFTs and resellable digital audio files.
