@@ -14,7 +14,7 @@ contract ReleaseToken is ERC721URIStorage, Ownable {
 
     constructor() ERC721("ReleaseToken", "RLST") {}
 
-    function setOriginToken(address _originToken) onlyOwner {
+    function setOriginToken(address _originToken) public onlyOwner {
         originToken = _originToken;
     }
 
@@ -38,9 +38,9 @@ contract ReleaseToken is ERC721URIStorage, Ownable {
     function purchase(uint256 _tokenId) public payable {
         require(_exists(_tokenId), "Token does not exist");
         require(forSale[_tokenId], "Token not for sale");
-        require(msg.value >= price, "Token price not met");
+        require(msg.value >= price[_tokenId], "Token price not met");
         // TODO Register sale with Royalty manager
         forSale[_tokenId] = false;
-        _transfer(owenerOf(_tokenId), msg.sender, _tokenId);
+        _transfer(ownerOf(_tokenId), msg.sender, _tokenId);
     }
 }
