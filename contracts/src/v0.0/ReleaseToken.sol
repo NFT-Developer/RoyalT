@@ -35,6 +35,14 @@ contract ReleaseToken is ERC721URIStorage, Ownable {
         forSale[_tokenId] = _forSale;
     }
 
+    function setPrice(uint256 _price, uint256 _tokenId) public {
+        require(
+            _isApprovedOrOwner(msg.sender, _tokenId),
+            "Not approved or owner"
+        );
+        price[_tokenId] = _price;
+    }
+
     function purchase(uint256 _tokenId) public payable {
         require(_exists(_tokenId), "Token does not exist");
         require(forSale[_tokenId], "Token not for sale");
