@@ -1,1 +1,46 @@
 pragma solidity 0.8.0;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract ReleaseToken is ERC721URIStorage, Ownable {
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
+    address public originToken;
+    mapping(uint256 => bool) public forSale;
+    mapping(uint256 => uint256) public price;
+
+    constructor() ERC721("ReleaseToken", "RLST") {}
+
+    function setOriginToken(address _originToken) onlyOwner {
+        originToken = _originToken;
+    }
+
+    function mint(string memory _tokenURI) public onlyOwner returns (bool) {
+        require(msg.sender == originToken, "Not authorized to mint");
+        _tokenIds.increment();
+        uint256 tokenId = _tokenIds.current();
+        _mint(originToken, tokenId);
+        _setTokenURI(tokenId, _tokenURI);
+        return true;
+    }
+
+    function setForSale(bool _forSale, uint256 _tokenId) public {
+        require(
+            _isApprovedOrOwner(msg.sender, _tokenId),
+            "Not approved or owner"
+        );
+        forSale[_tokenId] = _forSale;
+    }
+
+    function purchase(uint256 _tokenId) public payable {
+        require(_exists(_tokenId), "Token does not exist");
+        require(forSale[_tokenId], "Token not for sale");
+        require(msg.value >= price, "Token price not met");
+        // TODO Register sale with Royalty manager
+        forSale[_tokenId] = false;
+        _transfer(owenerOf(_tokenId), msg.sender, _tokenId);
+    }
+}
