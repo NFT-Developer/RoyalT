@@ -1,3 +1,3 @@
 # RoyalTSwap
 
-Royalty Earning NFTs and resellable digital audio files.
+Royalty Earning NFTs and resellable digital audio collectibles.
