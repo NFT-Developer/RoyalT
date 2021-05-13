@@ -26,7 +26,7 @@ contract RoyaltyToken is ERC721URIStorage, Ownable {
         require(msg.sender == originToken, "Not authorized to mint");
         _tokenIds.increment();
         uint256 tokenId = _tokenIds.current();
-        originId[tokenId] = originId;
+        originId[tokenId] = _originId;
         //TODO: set to owner of origin token
         _mint(originToken, tokenId);
         _setTokenURI(tokenId, _tokenURI);
