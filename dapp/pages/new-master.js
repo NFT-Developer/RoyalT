@@ -1,6 +1,6 @@
 const walletMnemonic = process.env.MNEMONIC;
 import React, { Component } from "react";
-import { Grid, Container, Header } from "semantic-ui-react";
+import { Grid, Container, Header, Segment, Icon, Button, Input } from "semantic-ui-react";
 import Layout from "../components/Layout";
 import { Link, Router } from "../routes";
 const Moralis = require("moralis");
@@ -16,7 +16,16 @@ if (!process.env.MORALIS_APP_ID) {
 }
 
 class NewMaster extends Component {
-  state = { userAddress: "", username: "" };
+  constructor(props) {
+    super(props);
+    this.state = {
+      userAddress: "",
+      username: "",
+      artist: "",
+      title: "",
+      details: ""
+    };
+  }
 
   async componentDidMount() {
     this._isMounted = true;
@@ -41,24 +50,77 @@ class NewMaster extends Component {
   render() {
     return (
       <Layout page="dashboard">
-        <Grid columns={6} style={{ marginTop: "10px" }}>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Grid.Row>
-                <h1
-                  style={{
-                    fontSize: "4em",
-                    fontWeight: "normal",
-                  }}
-                >
+        <Grid style={{ paddingRight:"150px" }}>
+          <Grid.Row centered>
+            <Grid.Column>
+                <Header>
                   + New Master
-                </h1>
-                <h2>Address:{this.state.userAddress}</h2>
-              </Grid.Row>
+                </Header>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row columns={1}>
+            <Grid.Column>
+              <Input
+                label="Artist:"
+                labelPosition="left"
+                style={{marginTop:"-10px", padding:"5px", width:"100%"}}
+                value={this.state.artist}
+                onChange={(event) =>
+                  this.setState({ artist: event.target.value })
+                }
+              />
+            </Grid.Column>
+            <Grid.Column>
+              <Input
+                label="Title:"
+                labelPosition="left"
+                style={{padding:"5px", width:"100%"}}
+                value={this.state.title}
+                onChange={(event) =>
+                  this.setState({ title: event.target.value })
+                }s
+              />
+            </Grid.Column>
+            <Grid.Column>
+              <Input
+                label="Details:"
+                labelPosition="left"
+                style={{padding:"5px", width:"100%"}}
+                value={this.state.details}
+                onChange={(event) =>
+                  this.setState({ details: event.target.value })
+                }s
+              />
+              </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <Segment placeholder style={{marginTop:"-15px"}}>
+                <Header icon>
+                  <Icon name='music' />
+                  Audio File
+                </Header>
+                <Button color="purple">+ Add File</Button>
+              </Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <br />
+            <Grid.Column>
+              <Segment placeholder style={{marginTop:"-15px"}}>
+                <Header icon>
+                  <Icon name='file image outline' />
+                  Artwork
+                </Header>
+                <Button color="purple">+ Add File</Button>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <center>
+                <Button size="huge" color="blue">Create Master</Button>
+              </center>
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </Layout>

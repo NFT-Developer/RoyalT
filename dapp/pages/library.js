@@ -164,7 +164,7 @@ class Library extends Component {
   render() {
     return (
       <Layout page="library">
-        <Grid style={{ marginTop: "10px" }}>
+        <Grid style={{ paddingRight:"150px" }}>
           <Grid.Row>
             <Grid.Column>
               <Grid.Row>
