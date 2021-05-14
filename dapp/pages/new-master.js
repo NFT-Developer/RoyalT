@@ -3,6 +3,7 @@ import React, { Component, useRef } from "react";
 import { Grid, Container, Header, Segment, Icon, Button, Input } from "semantic-ui-react";
 import Layout from "../components/Layout";
 import { Link, Router } from "../routes";
+import Dropzone from 'react-dropzone';
 const Moralis = require("moralis");
 let appId;
 let serverURL;
@@ -44,9 +45,17 @@ class NewMaster extends Component {
     });
   }
 
+  onAudioFileDrop = (acceptedFiles) => {
+    console.log(acceptedFiles)
+  }
+
   addAudioFile() {
     const inputFile = useRef(null);
     console.log("Add audio file pressed");
+  }
+
+  onArtworkDrop = (acceptedFiles) => {
+    console.log(acceptedFiles);
   }
 
   addArtwork() {
@@ -113,24 +122,41 @@ class NewMaster extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
-              <Segment placeholder style={{marginTop:"-15px"}}>
-                <Header icon>
-                  <Icon name='music' />
-                  Audio File
-                </Header>
-                <Button color="purple" onClick={this.addAudioFile}>+ Add File</Button>
+              <Segment placeholder style={{ marginTop: "-15px" }}>
+                <Dropzone onDrop={this.onAudioFileDrop}>
+                  {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <center>
+                        <Header icon>
+                          <Icon style={{marginBottom:"25px"}} name='music' />
+                            Drop Audio File Here
+                          </Header>
+                        <Button color="purple">+ Add File</Button>
+                      </center>
+                    </div>
+                  )}
+                </Dropzone>
               </Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
               <Segment placeholder style={{ marginTop: "-15px" }}>
-              <input type="file" id="profilePhotoFileUpload" />
-                <Header icon>
-                  <Icon name='file image outline' />
-                  Artwork
-                </Header>
-                <Button color="purple" onClick={this.addArtwork}>+ Add File</Button>
+                <Dropzone onDrop={this.onArtworkDrop}>
+                  {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <center>
+                        <Header icon>
+                          <Icon style={{marginBottom:"-20px"}} name='file image outline' />
+                          Drop Artwork Here
+                        </Header>
+                        <Button color="purple">+ Add File</Button>
+                      </center>
+                    </div>
+                  )}
+                </Dropzone>
               </Segment>
             </Grid.Column>
           </Grid.Row>
