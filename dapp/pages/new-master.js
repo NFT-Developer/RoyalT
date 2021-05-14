@@ -1,5 +1,5 @@
 const walletMnemonic = process.env.MNEMONIC;
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 import { Grid, Container, Header, Segment, Icon, Button, Input } from "semantic-ui-react";
 import Layout from "../components/Layout";
 import { Link, Router } from "../routes";
@@ -42,6 +42,24 @@ class NewMaster extends Component {
       userAddress: user.attributes.ethAddress,
       username: user.attributes.username,
     });
+  }
+
+  addAudioFile() {
+    const inputFile = useRef(null);
+    console.log("Add audio file pressed");
+  }
+
+  addArtwork() {
+    console.log("Add artwork file pressed");
+  }
+
+  async createMaster() {
+    console.log("Create master pressed");
+    //1. Upload audio file to IPFS
+    //2. Upload artwork to IPFS
+    //3. Create JSON object with metadata
+    //4. Upload JSON to IPFS
+    //5. Create NFT with IPFS URI
   }
 
   componentWillUnmount() {
@@ -88,8 +106,8 @@ class NewMaster extends Component {
                 style={{padding:"5px", width:"100%"}}
                 value={this.state.details}
                 onChange={(event) =>
-                  this.setState({ details: event.target.value })
-                }s
+                  this.setState({ detailnhs: event.target.value })
+                }
               />
               </Grid.Column>
           </Grid.Row>
@@ -100,25 +118,26 @@ class NewMaster extends Component {
                   <Icon name='music' />
                   Audio File
                 </Header>
-                <Button color="purple">+ Add File</Button>
+                <Button color="purple" onClick={this.addAudioFile}>+ Add File</Button>
               </Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
-              <Segment placeholder style={{marginTop:"-15px"}}>
+              <Segment placeholder style={{ marginTop: "-15px" }}>
+              <input type="file" id="profilePhotoFileUpload" />
                 <Header icon>
                   <Icon name='file image outline' />
                   Artwork
                 </Header>
-                <Button color="purple">+ Add File</Button>
+                <Button color="purple" onClick={this.addArtwork}>+ Add File</Button>
               </Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
               <center>
-                <Button size="huge" color="blue">Create Master</Button>
+                <Button size="huge" color="blue" onClick={this.createMaster}>Create Master</Button>
               </center>
             </Grid.Column>
           </Grid.Row>
